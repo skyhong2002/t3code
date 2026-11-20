@@ -70,6 +70,7 @@ export function ComposerModelControl(props: {
           <ProviderInstanceIcon
             iconUrl={props.modelOption?.providerIconUrl}
             provider={props.modelOption?.providerDriver}
+            model={props.selection?.model}
             displayName={badge.displayName}
             accentColor={badge.accentColor}
             showBadge
@@ -80,6 +81,7 @@ export function ComposerModelControl(props: {
           <ProviderIcon
             iconUrl={props.modelOption?.providerIconUrl}
             provider={props.modelOption?.providerDriver}
+            model={props.selection?.model}
             size={size}
           />
         )

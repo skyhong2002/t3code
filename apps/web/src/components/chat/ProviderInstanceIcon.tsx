@@ -6,6 +6,7 @@ import {
   providerInstanceInitials,
 } from "@t3tools/client-runtime/state/provider-instance-display";
 
+import { getModelBrandIcon } from "@t3tools/client-runtime/provider-clients";
 import { ProviderDriverKind } from "@t3tools/contracts";
 import {
   AnthropicIcon,
@@ -88,6 +89,7 @@ export function resolveProviderInstanceAcpRegistryIconUrl(input: {
 
 export const ProviderInstanceIcon = memo(function ProviderInstanceIcon(props: {
   driverKind: ProviderDriverKind;
+  model?: string | undefined;
   displayName: string;
   accentColor?: string | undefined;
   acpRegistryAgentId?: string | undefined;
@@ -101,6 +103,7 @@ export const ProviderInstanceIcon = memo(function ProviderInstanceIcon(props: {
   indicatorBackground?: string;
 }) {
   const Icon = PROVIDER_ICON_BY_PROVIDER[props.driverKind] ?? null;
+  const modelIcon = getModelBrandIcon(props.model);
   const packageIcon = providerClients.get(props.driverKind)?.icon;
   const indicatorBackground = props.indicatorBackground ?? "var(--card)";
   const accentColor = normalizeProviderAccentColor(props.accentColor);
@@ -130,7 +133,13 @@ export const ProviderInstanceIcon = memo(function ProviderInstanceIcon(props: {
       style={accentStyle}
       data-provider-accent-color={accentColor}
     >
-      {isAcpRegistry ? (
+      {modelIcon ? (
+        <ProviderPackageIcon
+          icon={modelIcon}
+          className={cn("size-5 shrink-0", iconClassName)}
+          aria-hidden
+        />
+      ) : isAcpRegistry ? (
         <AcpRegistryAgentIcon
           className={cn("size-5 rounded-none bg-transparent", iconClassName)}
           fallbackClassName="size-full"
@@ -172,7 +181,7 @@ export const ProviderInstanceIcon = memo(function ProviderInstanceIcon(props: {
           {providerInstanceInitials(props.displayName)}
         </span>
       )}
-      {isCustomEndpoint ? null : props.showBadge ? (
+      {props.showBadge && (!isCustomEndpoint || modelIcon) ? (
         <span
           className={cn(
             "pointer-events-none absolute right-0 bottom-0 z-10 flex h-3.5 min-w-3.5 items-center justify-center rounded-full border px-0.5 text-4xs font-semibold leading-none shadow-sm",

@@ -397,6 +397,7 @@ export const ProviderModelPicker = memo(function ProviderModelPicker(props: {
                     <ProviderInstanceIcon
                       key={`${selection.instanceId}:${selection.model}`}
                       driverKind={selection.entry.driverKind}
+                      model={selection.model}
                       displayName={selection.entry.displayName}
                       accentColor={selection.entry.accentColor}
                       acpRegistryAgentId={selection.entry.acpRegistryAgentId}
@@ -417,6 +418,7 @@ export const ProviderModelPicker = memo(function ProviderModelPicker(props: {
             <span data-chat-provider-model-picker-icon className="contents">
               <ProviderInstanceIcon
                 driverKind={activeEntry.driverKind}
+                model={selectedModel?.slug ?? props.model}
                 displayName={activeEntry.displayName}
                 accentColor={activeEntry.accentColor}
                 acpRegistryAgentId={activeEntry.acpRegistryAgentId}

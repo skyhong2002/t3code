@@ -55,9 +55,9 @@ export const ModelListRow = memo(function ModelListRow(props: {
           "data-disabled:pointer-events-auto data-disabled:cursor-not-allowed",
       )}
     >
-      {/* One row shape in every tab: the logo names the provider, so Favorites needs no second line. */}
       <ProviderInstanceIcon
         driverKind={props.driverKind}
+        model={props.slug}
         displayName={props.providerDisplayName}
         accentColor={props.providerAccentColor}
         acpRegistryAgentId={props.acpRegistryAgentId}
